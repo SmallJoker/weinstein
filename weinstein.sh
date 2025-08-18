@@ -14,7 +14,7 @@ error()
 
 # ============ Setup / Preconditions
 
-[ ! -f "config.sh" ] && \
+[ ! -f "$HERE/config.sh" ] && \
 	error "Missing config.sh. Please read the setup instructions."
 
 # CFG_* variables

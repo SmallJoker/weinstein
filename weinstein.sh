@@ -57,8 +57,9 @@ print_help()
 	echo "   a|apply  DLLDIRNAME    *1  Adds a DLL to the fake Wine install"
 	echo "   r|remove DLLDIRNAME    *1  Counterpart of 'apply'"
 	echo "   b|build  DLLDIRNAME    *1  Builds the specified DLL"
-	echo "   r|run  CMD ARGS ...    Runs the specified command using the fake Wine install"
+	echo "   x|exec CMD ARGS ...    Runs the specified command using the fake Wine install"
 	echo "   d|dbg  CMD ARGS ...    Same as 'run winedbg CMD ARGS ...'"
+	echo "   i|installed|list       *1  Lists the fake-installed (= overwritten) files"
 	echo "   u                      *1  Unmounts the fake install"
 	echo "Note *1: This command does not terminate the script, thus allows daisy-chaining."
 	echo "Note: After a 'build' command, you should run 'apply' to update the \"installed\" DLL."
@@ -114,7 +115,7 @@ while [[ $# -gt 0 ]]; do
 			echo "--> Unmounted fuse dir"
 			shift 1
 			;;
-		r|run)
+		x|exec|run)
 			prepare_run
 			shift 1
 			"$HERE/fakeinstall/bin/wine" $*
@@ -148,7 +149,7 @@ while [[ $# -gt 0 ]]; do
 
 			shift 2
 			;;
-		r|rm|remove)
+		rm|remove)
 			COMP="$2" # DLL dir name: shell32, winex11.drv
 			COMP_NOEXT=${2%.*} # trim "extension"
 
